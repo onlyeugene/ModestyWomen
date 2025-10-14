@@ -95,6 +95,7 @@ src/
 └── index.css                # Global styles
 ```
 
+
 ## 🚀 Getting Started
 
 ### Prerequisites
