@@ -4,12 +4,49 @@ A modern, responsive website for Modesty Women Global Initiative - a Non-Governm
 
 ## 🌟 About
 
-Modesty Women Global Initiative is founded by Emelda Ahunna Osuji and focuses on:
+Modesty Women Global Initiative is a Non-Governmental Organization founded by Emelda Ahunna Osuji, born and raised in Umuchu, Aguata Local Government Area of Anambra State, Nigeria. The organization is dedicated to creating a future where every woman has the opportunity to thrive through education, empowerment, and community support, regardless of background or circumstance.
 
-- **Women Empowerment**: Training women in small business management, digital literacy, and vocational skills
-- **Girl Child Protection**: Advocating against girl-child abuse and providing support to vulnerable young girls
-- **Education Support**: Providing scholarships, school materials, and mentorship for girls' education
-- **Community Development**: Creating platforms that empower women to unlock their potential and become financially independent
+### 🎯 Mission & Vision
+
+**Mission**: To empower women and transform communities through education, entrepreneurship, mentorship, and community development, creating platforms that enable women to unlock their potential, become financially independent, and contribute meaningfully to society.
+
+**Vision**: Building a future where every woman has the opportunity to thrive through education, empowerment, and community support.
+
+### 🚨 Issues We Tackle
+
+1. **Girl Child Abuse**:
+
+   - Raising awareness on the rights of the girl child
+   - Providing guidance, protection, and support to victims
+   - Supporting vulnerable young girls across communities
+   - Creating safe spaces for girls to grow and develop
+
+2. **Women's Financial Dependence**:
+
+   - Training women in small business management
+   - Providing digital literacy and vocational skills training
+   - Offering workshops, mentorship, and seed funding opportunities
+   - Helping women achieve financial independence
+
+3. **Indecent Dressing & Moral Development**:
+
+   - Redefining what it means to dress with confidence and self-worth
+   - Teaching young women that true beauty shines with dignity, discipline, and purpose
+   - Inspiring women to express themselves gracefully
+   - Promoting modesty as a form of empowerment
+
+4. **Girls' Education Barriers**:
+   - Providing scholarships and school materials
+   - Offering mentorship programs
+   - Running awareness campaigns for girls' right to education
+   - Supporting families to keep girls in school
+
+### 🎯 Our Focus Areas
+
+- **Education & Mentorship**: Comprehensive educational support and guidance
+- **Community Outreach**: Direct engagement with local communities
+- **Skill Development & Training**: Practical skills for economic empowerment
+- **Financial Empowerment**: Business development and financial literacy
 
 ## 🚀 Features
 
