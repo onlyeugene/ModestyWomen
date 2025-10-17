@@ -1,4 +1,5 @@
 import "./App.css";
+import Footer from "./components/common/footer";
 import Navbar from "./components/common/navbar";
 import Contact from "./pages/contact";
 import Empowering from "./pages/empowering";
@@ -17,6 +18,7 @@ function App() {
       <Founder />
       <Support />
       <Contact />
+      <Footer />
     </>
   );
 }

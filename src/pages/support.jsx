@@ -18,7 +18,7 @@ const Support = () => {
   };
 
   return (
-    <main>
+    <main id="donations" className="py-10">
       <Container>
         <div className="flex lg:flex-row flex-col lg:gap-20 gap-10 my-10 bg-[#E3F8F0] p-5 lg:p-20 rounded-lg lg:items-center">
           <>

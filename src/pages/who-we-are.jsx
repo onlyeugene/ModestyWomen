@@ -23,7 +23,7 @@ const WhoWeAre = () => {
     },
   ];
   return (
-    <main className="lg:py-10 py-4">
+    <main className="lg:py-10 py-4" id="about">
       <Container>
         <div className="flex lg:flex-row flex-col lg:items-center gap-8">
           <>

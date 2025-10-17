@@ -4,7 +4,7 @@ import { goals } from "../assets";
 
 const WhatWeDo = () => {
   return (
-    <main className="lg:my-10 my-4">
+    <main className="lg:my-10 my-4" id="campaigns">
       <Container>
         <div className="flex flex-col items-center justify-center">
           <h1 className="font-bold lg:text-[50px] text-[30px]">What we do</h1>

@@ -5,7 +5,7 @@ import { assets } from "../assets";
 
 const Empowering = () => {
   return (
-    <main className="bg-[#E3F8F0] pt-40 pb-20">
+    <main className="bg-[#E3F8F0] lg:pt-40 pt-24 pb-20">
       <Container>
         <div className="flex lg:flex-row flex-col lg:items-center gap-8">
           <div>
@@ -19,12 +19,14 @@ const Empowering = () => {
               freedom to shape their own futures.
             </p>
 
-            <Button
-              text="Make Donations"
-              className="mt-10 border bg-[#019141] lg:text-lg text-base font-semibold text-white rounded-md"
-              type="submit"
-              size="md"
-            />
+            <a href="#donations">
+              <Button
+                text="Make Donations"
+                className="mt-10 border bg-[#019141] lg:text-lg text-base font-semibold text-white rounded-md cursor-pointer"
+                type="submit"
+                size="md"
+              />
+            </a>
           </div>
           <>
             <img src={assets.seller} alt="image of a seller" />

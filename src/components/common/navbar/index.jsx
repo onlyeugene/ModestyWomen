@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "./logo";
 import Container from "../../container";
 import Menu from "./menu";
+import MobileMenu from "./mobile-menu";
 
 const Navbar = () => {
   return (
@@ -10,6 +11,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <Logo />
           <Menu />
+          <MobileMenu />
         </div>
       </Container>
     </div>
