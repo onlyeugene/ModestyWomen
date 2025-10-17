@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import Container from "../components/container";
 import Button from "../components/button";
 import { assets } from "../assets";
-import emailjs from '@emailjs/browser';
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    message: ''
+    fullName: "",
+    email: "",
+    message: "",
   });
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,23 +20,25 @@ const Contact = () => {
   const sendEmail = (e) => {
     e.preventDefault();
     setLoading(true);
-    setStatus('');
+    setStatus("");
 
-    // Replace these with your actual EmailJS credentials
-    // Sign up at https://www.emailjs.com/ to get these
-    const SERVICE_ID = 'your_service_id';  // e.g., 'service_abc123'
-    const TEMPLATE_ID = 'your_template_id';  // e.g., 'template_xyz789'
-    const PUBLIC_KEY = 'your_public_key';  // e.g., 'user_abcdefghijklmnop'
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, PUBLIC_KEY)
-      .then((result) => {
-        console.log(result.text);
-        setStatus('Message sent successfully!');
-        setFormData({ fullName: '', email: '', message: '' });
-      }, (error) => {
-        console.log(error.text);
-        setStatus('Failed to send message. Please try again.');
-      })
+    emailjs
+      .sendForm(SERVICE_ID, TEMPLATE_ID, e.target, PUBLIC_KEY)
+      .then(
+        (result) => {
+          console.log(result.text);
+          setStatus("Message sent successfully!");
+          setFormData({ fullName: "", email: "", message: "" });
+        },
+        (error) => {
+          console.log(error.text);
+          setStatus("Failed to send message. Please try again.");
+        }
+      )
       .finally(() => {
         setLoading(false);
       });
@@ -46,7 +48,10 @@ const Contact = () => {
     <main className="py-10" id="contact">
       <Container>
         <div className="flex lg:flex-row flex-col-reverse lg:items-center gap-8 ">
-          <form onSubmit={sendEmail} className="bg-[#E3F8F0] lg:p-10 p-5 space-y-4 lg:w-1/2 w-full">
+          <form
+            onSubmit={sendEmail}
+            className="bg-[#E3F8F0] lg:p-10 p-5 space-y-4 lg:w-1/2 w-full"
+          >
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="fullName"
@@ -65,10 +70,7 @@ const Contact = () => {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label
-                htmlFor="email"
-                className="lg:text-xl text-md font-bold "
-              >
+              <label htmlFor="email" className="lg:text-xl text-md font-bold ">
                 Email Address
               </label>
               <input
@@ -115,7 +117,11 @@ const Contact = () => {
               Reach out to us if you have any suggestions, complains or means of
               support, send us a message
             </p>
-            <img src={assets.customer} alt="image of a customer rep" className="lg:block hidden"/>
+            <img
+              src={assets.customer}
+              alt="image of a customer rep"
+              className="lg:block hidden"
+            />
           </div>
         </div>
       </Container>
