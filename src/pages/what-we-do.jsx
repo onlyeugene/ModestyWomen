@@ -22,7 +22,7 @@ const WhatWeDo = () => {
               <img src={goal.image} alt={goal.title} className="w-full" />
 
               <div>
-                <h2 className="font-bold lg:text-[32px] text-lg mt-4">
+                <h2 className=" font-extrabold lg:text-[32px] text-lg mt-4">
                   {goal.title}
                 </h2>
                 <p className="font-medium lg:text-lg text-base text-[#5A5A5A]">

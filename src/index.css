@@ -1,2 +1,6 @@
 @import "tailwindcss";
 
+.container{
+    @apply mx-auto lg:p-4 p-1 w-11/12;
+  }
+  
