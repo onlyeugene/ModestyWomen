@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
@@ -14,15 +15,24 @@ const HomeBlogs = () => {
   const [loading, setLoading] = useState(false);
 
   const fetchBlogs = async () => {
-    const url = `${import.meta.env.VITE_API_URL}`;
+    const url = `${import.meta.env.VITE_API_URL}/posts`;
     try {
       setLoading(true);
       const response = await axios.get(url);
-      setBlogs(response.data);
+      if (Array.isArray(response.data)) {
+        setBlogs(response.data);
+      } else if (response.data && response.data.message === "No posts found") {
+        setBlogs([]);
+        setError(response.data.message);
+      } else {
+        setBlogs([]); // Ensure blogs is an empty array if response.data is not an array
+        setError("Received invalid data from the server.");
+      }
 
       console.log(response.data);
     } catch (err) {
-      setError(err.message);
+      setError(response?.data?.message || err.message);
+      setBlogs([]); // Ensure blogs is an empty array on error
     } finally {
       setLoading(false);
     }
@@ -58,7 +68,24 @@ const HomeBlogs = () => {
             <div>
               {error && <div className="text-center mt-10">Error: {error}</div>}
               {!loading && !error && blogs.length === 0 && (
-                <div className="text-center mt-10">No blogs available.</div>
+                <div className="text-center py-24 px-6">
+                  <div className="text-7xl md:text-8xl mb-8 text-gray-400">
+                    📖
+                  </div>
+                  <h3 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    No Stories to Share Yet
+                  </h3>
+                  <p className="text-lg md:text-xl text-gray-600 max-w-xl mx-auto mb-8">
+                    We're currently crafting new insights and stories. Please
+                    check back later for updates!
+                  </p>
+                  <button
+                    onClick={fetchBlogs}
+                    className="inline-flex items-center px-8 py-4 bg-[#019141]  text-white font-semibold rounded-xl hover:bg-emerald-700 transition shadow-lg transform hover:-translate-y-1"
+                  >
+                    Refresh Stories
+                  </button>
+                </div>
               )}
               {!loading && !error && blogs.length > 0 && (
                 <div className="mt-10 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
@@ -97,7 +124,7 @@ const HomeBlogs = () => {
                         </p>
                         <a
                           href={`/blogs/${blog.id}`}
-                          className="text-green-600 hover:underline text-sm sm:text-base"
+                          className="text-[#019141] hover:underline text-sm sm:text-base"
                         >
                           Read More
                         </a>

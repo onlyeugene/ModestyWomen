@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
@@ -14,13 +15,22 @@ const BlogPage = () => {
   const navigate = useNavigate(); // Initialize useNavigate
 
   const fetchBlogs = async () => {
-    const url = `${import.meta.env.VITE_API_URL}`;
+    const url = `${import.meta.env.VITE_API_URL}/posts`;
     try {
       setLoading(true);
       const response = await axios.get(url);
-      setBlogs(response.data);
+      if (Array.isArray(response.data)) {
+        setBlogs(response.data);
+      } else if (response.data && response.data.message === "No posts found") {
+        setBlogs([]);
+        setError(response.data.message);
+      } else {
+        setBlogs([]); // Ensure blogs is an empty array if response.data is not an array
+        setError("Received invalid data from the server.");
+      }
     } catch (err) {
-      setError("Failed to load blog posts. Please try again later.", err);
+      setError(response?.data?.message || err.message);
+      setBlogs([]); // Ensure blogs is an empty array on error
     } finally {
       setLoading(false);
     }
@@ -116,15 +126,22 @@ const BlogPage = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center py-24"
+            className="text-center py-24 px-6"
           >
-            <div className="text-5xl md:text-6xl mb-6">📝</div>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
-              No articles yet
+            <div className="text-7xl md:text-8xl mb-8 text-gray-400">📖</div>
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              No Stories to Share Yet
             </h3>
-            <p className="text-base md:text-xl text-gray-600 max-w-xl mx-auto">
-              We're working on bringing you inspiring stories. Check back soon!
+            <p className="text-lg md:text-xl text-gray-600 max-w-xl mx-auto mb-8">
+              We're currently crafting new insights and stories. Please check
+              back later for updates!
             </p>
+            <button
+              onClick={fetchBlogs}
+              className="inline-flex items-center px-8 py-4 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition shadow-lg transform hover:-translate-y-1"
+            >
+              Refresh Stories
+            </button>
           </motion.div>
         )}
 

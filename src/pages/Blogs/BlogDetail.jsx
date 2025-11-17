@@ -17,13 +17,14 @@ const BlogDetail = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const url = `${import.meta.env.VITE_API_URL}/${id}`;
+    const url = `${import.meta.env.VITE_API_URL}/posts/${id}`;
     const fetchBlog = async () => {
       try {
         const response = await axios.get(url);
         setBlog(response.data);
       } catch (err) {
         setError("This story is currently unavailable.");
+        setBlog(null); // Ensure blog is null on error
       } finally {
         setLoading(false);
       }
