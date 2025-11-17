@@ -1,23 +1,21 @@
 import "./App.css";
 import Footer from "./components/common/footer";
 import Navbar from "./components/common/navbar";
-import Contact from "./pages/contact";
-import Empowering from "./pages/empowering";
-import Founder from "./pages/founder";
-import Support from "./pages/support";
-import WhatWeDo from "./pages/what-we-do";
-import WhoWeAre from "./pages/who-we-are";
+import BlogDetail from "./pages/Blogs/BlogDetail";
+import Home from "./pages/Home";
+import { Routes, Route } from "react-router-dom";
+import BlogPage from "./pages/Blogs/BlogPage";
 
 function App() {
   return (
     <>
       <Navbar />
-      <Empowering />
-      <WhoWeAre />
-      <WhatWeDo />
-      <Founder />
-      <Support />
-      <Contact />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/blogs" element={<BlogPage />} />
+        <Route path="/blogs/:id" element={<BlogDetail />} />
+        {/* You can add more routes here for other pages if needed */}
+      </Routes>
       <Footer />
     </>
   );

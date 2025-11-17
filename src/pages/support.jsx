@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import Container from "../components/container";
 import { assets } from "../assets";
 import { FaCopy, FaCheck } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Support = () => {
   const [copied, setCopied] = useState(false);
@@ -18,14 +20,37 @@ const Support = () => {
   };
 
   return (
-    <main id="donations" className="py-10">
+    <motion.main
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8 }}
+      id="donations"
+      className="py-10"
+    >
       <Container>
-        <div className="flex lg:flex-row flex-col lg:gap-20 gap-10 my-10 bg-[#E3F8F0] p-5 lg:p-20 rounded-lg lg:items-center">
-          <>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex lg:flex-row flex-col lg:gap-20 gap-10 my-10 bg-[#E3F8F0] p-5 lg:p-20 rounded-lg lg:items-center"
+        >
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
             <img src={assets.support} alt="images of any women" />
-          </>
+          </motion.div>
 
-          <div>
+          <motion.div
+            // initial={{ opacity: 0, x: 50 }}
+            // whileInView={{ opacity: 1, y: 0 }}
+            // viewport={{ once: true, amount: 0.5 }}
+            // transition={{ duration: 0.8, delay: 0.4 }}
+          >
             <div className="space-y-6">
               <h1 className="font-bold lg:text-[50px] text-[30px]">
                 Suport our mission
@@ -37,7 +62,12 @@ const Support = () => {
                 thousands of women across Nigeria.
               </p>
 
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
                 <div className="flex items-center gap-3">
                   <p className="lg:text-2xl text-sm font-bold ">
                     Account Number: {accountNumber}
@@ -58,14 +88,22 @@ const Support = () => {
                   {" "}
                   Stanbic IBTC Bank
                 </span>
-              </div>
+              </motion.div>
 
-              <p className="font-medium text-lg text-[#5A5A5A]">Thank you for your Support!</p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="font-medium text-lg text-[#5A5A5A]"
+              >
+                Thank you for your Support!
+              </motion.p>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </Container>
-    </main>
+    </motion.main>
   );
 };
 

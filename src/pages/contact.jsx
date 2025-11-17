@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import Container from "../components/container";
 import Button from "../components/button";
 import { assets } from "../assets";
 import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -45,11 +47,22 @@ const Contact = () => {
   };
 
   return (
-    <main className="py-10" id="contact">
+    <motion.main
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8 }}
+      className="py-10"
+      id="contact"
+    >
       <Container>
         <div className="flex lg:flex-row flex-col-reverse lg:items-center gap-8 ">
-          <form
+          <motion.form
             onSubmit={sendEmail}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             className="bg-[#E3F8F0] lg:p-10 p-5 space-y-4 lg:w-1/2 w-full"
           >
             <div className="flex flex-col gap-2">
@@ -107,9 +120,15 @@ const Contact = () => {
               className="text-white border px-8 bg-[#019141] rounded-md lg:text-lg text-sm mt-8"
             />
             {status && <p className="mt-4 text-sm font-medium">{status}</p>}
-          </form>
+          </motion.form>
 
-          <div className="lg:w-1/2 w-full ">
+          <motion.div
+            // initial={{ opacity: 0, x: 50 }}
+            // whileInView={{ opacity: 1, y: 0 }}
+            // viewport={{ once: true, amount: 0.5 }}
+            // transition={{ duration: 0.8, delay: 0.3 }}
+            className="lg:w-1/2 w-full "
+          >
             <h1 className="font-bold lg:text-[50px] text-[30px]">
               Get in touch with us
             </h1>
@@ -122,10 +141,10 @@ const Contact = () => {
               alt="image of a customer rep"
               className="lg:block hidden"
             />
-          </div>
+          </motion.div>
         </div>
       </Container>
-    </main>
+    </motion.main>
   );
 };
 
