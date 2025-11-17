@@ -17,11 +17,10 @@ const BlogDetail = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const url = `${import.meta.env.VITE_API_URL}/${id}`;
     const fetchBlog = async () => {
       try {
-        const response = await axios.get(
-          `https://modesty-backend-blog.onrender.com/posts/${id}`
-        );
+        const response = await axios.get(url);
         setBlog(response.data);
       } catch (err) {
         setError("This story is currently unavailable.");

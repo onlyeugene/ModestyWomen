@@ -14,7 +14,7 @@ const BlogPage = () => {
   const navigate = useNavigate(); // Initialize useNavigate
 
   const fetchBlogs = async () => {
-    const url = `https://modesty-backend-blog.onrender.com/posts`;
+    const url = `${import.meta.env.VITE_API_URL}`;
     try {
       setLoading(true);
       const response = await axios.get(url);
