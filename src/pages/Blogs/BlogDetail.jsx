@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Container from "../../components/container";
-import { BiLoader, BiCalendar, BiArrowBack } from "react-icons/bi";
+import { BiLoader, BiCalendar, BiArrowBack, BiUser } from "react-icons/bi";
 import { motion } from "framer-motion";
 
 // Static, dignified header image for all blog posts
@@ -32,12 +32,27 @@ const BlogDetail = () => {
     fetchBlog();
   }, [id]);
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
+  const formatRelativeTime = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - date) / 1000);
+
+    const intervals = {
+      year: 31536000,
+      month: 2592000,
+      week: 604800,
+      day: 86400,
+      hour: 3600,
+      minute: 60,
+    };
+
+    for (const [unit, seconds] of Object.entries(intervals)) {
+      const interval = Math.floor(diffInSeconds / seconds);
+      if (interval >= 1) {
+        return `${interval} ${unit}${interval > 1 ? "s" : ""} ago`;
+      }
+    }
+    return "just now";
   };
 
   return (
@@ -62,15 +77,30 @@ const BlogDetail = () => {
               <span className="inline-block px-4 py-2 bg-teal-700/90 text-sm font-medium tracking-wider uppercase mb-4 md:mb-6">
                 Impact Story
               </span>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
                 {loading ? "Loading..." : blog?.title || "Story Not Found"}
               </h1>
 
+              {blog?.subheading && (
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-light opacity-90 mb-6">
+                  {blog.subheading}
+                </h2>
+              )}
+
               {blog?.created_at && (
-                <p className="mt-4 md:mt-6 text-lg opacity-90 flex items-center gap-2">
-                  <BiCalendar className="text-xl" />
-                  {formatDate(blog.created_at)}
-                </p>
+                <div className="flex flex-wrap items-center gap-6 text-lg opacity-90">
+                  <div className="flex items-center gap-2">
+                    <div className="bg-white/20 p-2 rounded-full">
+                      <BiUser className="text-xl" />
+                    </div>
+                    <span>
+                      Published {formatRelativeTime(blog.created_at)} by{" "}
+                      <span className="font-semibold">
+                        {blog.author === "Admin" ? "Editor" : blog.author || "Editor"}
+                      </span>
+                    </span>
+                  </div>
+                </div>
               )}
             </motion.div>
           </Container>
@@ -128,9 +158,75 @@ const BlogDetail = () => {
             )}
 
             <div className="px-4 lg:px-20 py-8 lg:py-16 prose prose-lg max-w-none">
-              <div className="text-gray-700 leading-relaxed text-lg space-y-6 whitespace-pre-line">
-                {blog.content}
-              </div>
+              {(() => {
+                // Normalize video_url to an array
+                const videos = Array.isArray(blog.video_url)
+                  ? blog.video_url
+                  : blog.video_url
+                    ? [blog.video_url]
+                    : [];
+
+                if (videos.length === 0) {
+                  return (
+                    <div className="text-gray-700 leading-relaxed text-lg space-y-6 whitespace-pre-line">
+                      {blog.content}
+                    </div>
+                  );
+                }
+
+                const middleIndex = Math.floor(blog.content.length / 2);
+                const splitIndex = blog.content.indexOf('\n', middleIndex);
+
+                // Content rendering helper
+                const renderContent = (text) => (
+                  <div className="text-gray-700 leading-relaxed text-lg space-y-6 whitespace-pre-line">
+                    {text}
+                  </div>
+                );
+
+                // Video rendering helper
+                const renderVideo = (url, index) => (
+                  <div key={index} className="py-12">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                      {index === 0 ? "Watch the Story" : "More from this Story"}
+                    </h3>
+                    <div className="relative pt-[56.25%] bg-black rounded-xl overflow-hidden shadow-lg">
+                      <video
+                        src={url}
+                        controls
+                        className="absolute inset-0 w-full h-full"
+                      >
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                );
+
+                const firstVideo = videos[0];
+                const remainingVideos = videos.slice(1);
+
+                if (splitIndex === -1) {
+                  return (
+                    <>
+                      {renderContent(blog.content)}
+                      {renderVideo(firstVideo, 0)}
+                      {remainingVideos.map((vid, idx) => renderVideo(vid, idx + 1))}
+                    </>
+                  );
+                }
+
+                const firstHalf = blog.content.slice(0, splitIndex);
+                const secondHalf = blog.content.slice(splitIndex);
+
+                return (
+                  <>
+                    {renderContent(firstHalf)}
+                    {renderVideo(firstVideo, 0)}
+                    {renderContent(secondHalf)}
+                    {remainingVideos.map((vid, idx) => renderVideo(vid, idx + 1))}
+                  </>
+                );
+              })()}
             </div>
 
             {/* Subtle CTA Footer */}
@@ -142,20 +238,6 @@ const BlogDetail = () => {
                 Every contribution helps us reach more lives and build stronger
                 communities.
               </p>
-              {/* <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <button
-                  onClick={() => navigate("/donate")}
-                  className="px-10 py-4 bg-teal-700 text-white font-semibold rounded-xl hover:bg-teal-800 transition shadow-lg"
-                >
-                  Donate Today
-                </button>
-                <button
-                  onClick={() => navigate("/contact")}
-                  className="px-10 py-4 border-2 border-teal-700 text-teal-700 font-semibold rounded-xl hover:bg-teal-50 transition"
-                >
-                  Get Involved
-                </button>
-              </div> */}
             </div>
           </motion.article>
         )}
