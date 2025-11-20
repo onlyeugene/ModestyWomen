@@ -96,7 +96,7 @@ const BlogDetail = () => {
                     <span>
                       Published {formatRelativeTime(blog.created_at)} by{" "}
                       <span className="font-semibold">
-                        {blog.author === "Admin" ? "Editor" : blog.author || "Editor"}
+                        {blog.author && 'Editor'}
                       </span>
                     </span>
                   </div>
