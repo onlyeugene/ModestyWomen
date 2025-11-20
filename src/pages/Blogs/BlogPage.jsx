@@ -172,9 +172,11 @@ const BlogPage = () => {
                   </div>
 
                   <div className="p-10 lg:p-16 flex flex-col justify-center">
-                    <span className="inline-block px-4 py-2 bg-emerald-100 text-emerald-800 text-sm font-semibold rounded-full mb-6">
+                   <div>
+                   <span className="inline-block px-4 py-2 bg-emerald-100 text-emerald-800 text-sm font-semibold rounded-full mb-6">
                       Featured Story
                     </span>
+                   </div>
                     <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
                       {featuredBlog.title}
                     </h2>
